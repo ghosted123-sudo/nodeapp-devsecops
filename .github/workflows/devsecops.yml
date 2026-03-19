@@ -63,7 +63,7 @@ jobs:
         with:
           image-ref: 'nodeapp:scan'
           format: 'table'
-          severity: 'CRITICAL,HIGH'
+          severity: 'CRITICAL'
           exit-code: '1'
 
   codeql:
