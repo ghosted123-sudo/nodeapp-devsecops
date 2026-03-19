@@ -27,7 +27,7 @@ app.use((req, res, next) => {
   res.on('finish', () => {
     httpTotal.inc({
       method: req.method,
-      route: req.path,
+      route: req.route?.path || req.path,
       status: String(res.statusCode),
     });
     end();
@@ -46,4 +46,16 @@ app.get('/metrics', async (req, res) => {
 
 app.listen(3000, () => {
   console.log('App démarrée sur le port 3000');
+});
+
+app.get('/error', (req, res) => {
+  res.status(500).json({ error: 'Internal Server Error' });
+});
+
+app.use((req, res) => {
+  res.status(404).json({ error: 'Not found' });
+});
+
+app.get('/error', (req, res) => {
+  res.status(500).json({ error: 'Internal Server Error' });
 });
